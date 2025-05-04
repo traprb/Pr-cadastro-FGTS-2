@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré Cadastro Saque-Aniversário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-container {
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .card-success {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Pré Cadastro Saque-Aniversário</h1>
+    <form id="preCadastroForm" action="https://formspree.io/f/xdkgejob" method="POST">
+      <label for="instituicao">Você já autorizou a instituição financeira no seu app FGTS ou Caixa?</label>
+      <select id="instituicao" name="instituicao" required>
+        <option value="">Selecione</option>
+        <option value="J17 Sociedade de Crédito">J17 Sociedade de Crédito</option>
+      </select>
+
+      <label for="cpf">Número do CPF</label>
+      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+
+      <label for="data_nascimento">Data de nascimento</label>
+      <input type="date" id="data_nascimento" name="data_nascimento" required>
+
+      <label for="telefone">Telefone WhatsApp</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 90000-0000" required>
+
+      <label>
+        <input type="checkbox" name="lgpd" required>
+        Aceito os termos da Lei Geral de Proteção de Dados (LGPD)
+      </label>
+
+      <button type="submit">Enviar Pré Cadastro</button>
+    </form>
+
+    <div class="card-success" id="cardSuccess">
+      <p>Pré cadastro realizado com sucesso! Aguarde alguns minutos e um de nossos consultores entrará em contato para dar continuidade ao seu saque aniversário.</p>
+    </div>
+  </div>
+
+  <script>
+    // Função para mostrar o card de sucesso após envio do formulário
+    const form = document.getElementById('preCadastroForm');
+    const cardSuccess = document.getElementById('cardSuccess');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();  // Previne o envio padrão do formulário
+
+      // Aqui você pode adicionar uma requisição AJAX se desejar enviar o formulário sem recarregar a página.
+      // Mas para este exemplo, vamos apenas mostrar o card de sucesso.
+
+      form.reset();  // Limpa os campos do formulário
+      cardSuccess.style.display = 'block';  // Exibe o card de sucesso
+    });
+  </script>
+
+</body>
+</html>
