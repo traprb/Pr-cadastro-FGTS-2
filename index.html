@@ -3,141 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pré-Cadastro Saque-Aniversário</title>
+  <title>Pré Cadastro - Saque Aniversário</title>
   <style>
-    :root {
-      --azul-escuro: #0b1f3a;
-      --laranja: #ff7a00;
-      --branco: #ffffff;
-    }
-
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--branco);
+      padding: 0;
+      background-color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .form-wrapper {
-      background: var(--azul-escuro);
+    .form-container {
+      background-color: #f9f9f9;
+      border: 2px solid #0d3b66;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       padding: 30px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 400px;
-      color: var(--branco);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: 500px;
+      width: 90%;
     }
 
     h1 {
+      color: #0d3b66;
       text-align: center;
-      color: var(--laranja);
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
+      margin: 15px 0 5px;
+      font-weight: 600;
+      color: #333;
     }
 
-    input, select {
+    input, select, textarea {
       width: 100%;
-      padding: 10px;
-      border: none;
+      padding: 12px;
+      border: 1px solid #ccc;
       border-radius: 5px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
     }
 
-    input:focus, select:focus {
-      outline: 2px solid var(--laranja);
+    input:focus, select:focus, textarea:focus {
+      border-color: #0d3b66;
+      outline: none;
     }
 
     button {
       width: 100%;
-      background-color: var(--laranja);
-      color: var(--branco);
       padding: 12px;
-      border: none;
-      border-radius: 6px;
+      background-color: #ff6600;
+      color: #fff;
       font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #e86d00;
+      background-color: #cc5200;
     }
 
-    .success-msg {
+    .success-message {
       display: none;
-      background-color: #28a745;
-      color: white;
       padding: 15px;
-      border-radius: 6px;
+      background-color: #0d3b66;
+      color: white;
+      border-radius: 5px;
+      margin-top: 20px;
       text-align: center;
-      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="form-wrapper">
-    <h1>Pré-Cadastro</h1>
-    <form id="formCadastro" action="https://formspree.io/f/xdkgejob" method="POST">
-      <label for="instituicao">Autorizou no App FGTS?</label>
-      <select name="instituicao" id="instituicao" required>
+  <div class="form-container">
+    <h1>Pré Cadastro Saque-Aniversário</h1>
+    <form action="https://formspree.io/f/xdkgejob" method="POST">
+      <label for="instituicao">Autorizou a instituição no app FGTS?</label>
+      <select id="instituicao" name="instituicao" required>
         <option value="">Selecione</option>
         <option value="J17 Sociedade de Crédito">J17 Sociedade de Crédito</option>
       </select>
 
       <label for="cpf">CPF</label>
-      <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" required/>
+      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
 
       <label for="nome">Nome completo</label>
-      <input type="text" name="nome" id="nome" placeholder="Seu nome" required/>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
 
       <label for="data_nascimento">Data de nascimento</label>
-      <input type="date" name="data_nascimento" id="data_nascimento" required/>
+      <input type="date" id="data_nascimento" name="data_nascimento" required>
 
       <label for="telefone">WhatsApp</label>
-      <input type="tel" name="telefone" id="telefone" placeholder="(DDD) 90000-0000" required/>
+      <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 90000-0000" required>
 
       <label>
-        <input type="checkbox" name="lgpd" required />
-        Aceito os termos da LGPD
+        <input type="checkbox" name="lgpd" required>
+        Aceito os termos da Lei Geral de Proteção de Dados (LGPD)
       </label>
 
-      <button type="submit">Enviar</button>
+      <button type="submit">Enviar Pré Cadastro</button>
     </form>
 
-    <div class="success-msg" id="successMsg">
-      Cadastro enviado com sucesso! Em breve entraremos em contato.
+    <div class="success-message" id="successMessage">
+      Pré-cadastro enviado com sucesso! Aguarde o contato de um consultor.
     </div>
   </div>
 
   <script>
-    const form = document.getElementById("formCadastro");
-    const msg = document.getElementById("successMsg");
+    const form = document.querySelector("form");
+    const successMessage = document.getElementById("successMessage");
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", async function(e) {
       e.preventDefault();
-      const formData = new FormData(form);
-      fetch(form.action, {
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
         method: form.method,
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          form.reset();
-          msg.style.display = "block";
-        } else {
-          alert("Erro ao enviar. Verifique os dados ou tente novamente.");
+        body: data,
+        headers: {
+          'Accept': 'application/json'
         }
-      }).catch(error => {
-        alert("Erro na conexão. Tente novamente.");
       });
+
+      if (response.ok) {
+        form.reset();
+        successMessage.style.display = "block";
+      } else {
+        alert("Ocorreu um erro ao enviar. Tente novamente.");
+      }
     });
   </script>
 </body>
