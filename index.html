@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pré Cadastro - Saque Aniversário</title>
+  <title>Saque-Aniversário</title>
   <style>
     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,84 +17,168 @@
     }
 
     .form-container {
-      background-color: #f9f9f9;
-      border: 2px solid #0d3b66;
-      border-radius: 10px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      background-color: #f4f6f9;
       padding: 30px;
-      max-width: 500px;
-      width: 90%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 420px;
+      width: 100%;
     }
 
     h1 {
-      color: #0d3b66;
       text-align: center;
+      color: #002244;
       margin-bottom: 20px;
+      font-size: 22px;
     }
 
     label {
       display: block;
-      margin: 15px 0 5px;
-      font-weight: 600;
+      margin: 12px 0 6px;
       color: #333;
+      font-weight: 600;
     }
 
-    input, select, textarea {
+    input, select, button {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
       margin-bottom: 10px;
-      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
       background-color: #ff6600;
-      color: #fff;
-      font-size: 16px;
+      color: white;
       font-weight: bold;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #cc5200;
+      background-color: #e65c00;
+    }
+
+    .message-card {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #ffe5b4;
+      border: 1px solid #f0ad4e;
+      color: #663c00;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .card-success {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .checkbox-container label {
+      font-size: 14px;
+      font-weight: normal;
     }
   </style>
 </head>
 <body>
+
   <div class="form-container">
-    <h1>Pré Cadastro Saque-Aniversário</h1>
-    <form action="https://formspree.io/f/xdkgejob" method="POST">
-      <label for="instituicao">Autorizou a instituição no app FGTS?</label>
-      <select id="instituicao" name="instituicao" required>
+    <h1>Saque-Aniversário</h1>
+
+    <form id="preCadastroForm" action="https://formspree.io/f/xdkgejob" method="POST">
+      
+      <label for="autorizado">
+        Você já autorizou a instituição financeira <strong>J17 Sociedade de Crédito</strong> no app FGTS ou Caixa?
+      </label>
+      <select id="autorizado" name="autorizado" required>
         <option value="">Selecione</option>
-        <option value="J17 Sociedade de Crédito">J17 Sociedade de Crédito</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
       </select>
 
+      <div id="naoAutorizadoCard" class="message-card">
+        Para continuar, você precisa autorizar a instituição no app FGTS ou Caixa. Sem isso, o saque-aniversário não poderá ser realizado.
+      </div>
+
       <label for="cpf">CPF</label>
-      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required />
 
       <label for="nome">Nome completo</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required />
 
       <label for="data_nascimento">Data de nascimento</label>
-      <input type="date" id="data_nascimento" name="data_nascimento" required>
+      <input type="date" id="data_nascimento" name="data_nascimento" required />
 
-      <label for="telefone">WhatsApp</label>
-      <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 90000-0000" required>
+      <label for="telefone">Telefone WhatsApp</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 90000-0000" required />
 
-      <label>
-        <input type="checkbox" name="lgpd" required>
-        Aceito os termos da Lei Geral de Proteção de Dados (LGPD)
-      </label>
+      <div class="checkbox-container">
+        <input type="checkbox" id="lgpd" name="lgpd" required />
+        <label for="lgpd">Lei Geral de Proteção de Dados (LGPD)</label>
+      </div>
 
-      <button type="submit">Enviar Pré Cadastro</button>
+      <button type="submit">Enviar Pré-Cadastro</button>
     </form>
+
+    <div class="card-success" id="cardSuccess">
+      Cadastro realizado com sucesso! Um correspondente autorizado entrará em contato para continuar o processo do seu saque-aniversário.
+    </div>
   </div>
+
+  <script>
+    const form = document.getElementById('preCadastroForm');
+    const cardSuccess = document.getElementById('cardSuccess');
+    const selectAutorizado = document.getElementById('autorizado');
+    const naoAutorizadoCard = document.getElementById('naoAutorizadoCard');
+
+    selectAutorizado.addEventListener('change', function () {
+      if (selectAutorizado.value === 'Não') {
+        naoAutorizadoCard.style.display = 'block';
+      } else {
+        naoAutorizadoCard.style.display = 'none';
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: {
+          Accept: 'application/json',
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.reset();
+          cardSuccess.style.display = 'block';
+          naoAutorizadoCard.style.display = 'none';
+        } else {
+          alert("Erro ao enviar. Tente novamente.");
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
